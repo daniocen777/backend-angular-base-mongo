@@ -2,6 +2,7 @@
 var express = require("express");
 var mongoose = require("mongoose"); // mongoose
 var bodyParser = require("body-parser"); // parser
+mongoose.set('useFindAndModify', false);
 
 // Inicializar variables
 var app = express();
@@ -12,6 +13,7 @@ app.use(bodyParser.json()); // parse application/json
 
 // Importando rutas
 var appRoutes = require("./routes/app"); // principal
+var loginRoutes = require("./routes/login"); // login
 var usuarioRoutes = require("./routes/usuario"); // usaurios
 
 // Conexión a la DB
@@ -26,6 +28,7 @@ mongoose.connection.openUri(
 
 // rutas
 app.use("/", appRoutes);
+app.use("/login", loginRoutes);
 app.use("/usuario", usuarioRoutes);
 
 // Escuchar peticiones
