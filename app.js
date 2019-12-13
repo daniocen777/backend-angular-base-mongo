@@ -1,9 +1,18 @@
 // Importación de librerías
 var express = require("express");
 var mongoose = require("mongoose"); // mongoose
+var bodyParser = require("body-parser"); // parser
 
 // Inicializar variables
 var app = express();
+// body-parser
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json()); // parse application/json
+
+// Importando rutas
+var appRoutes = require("./routes/app"); // principal
+var usuarioRoutes = require("./routes/usuario"); // usaurios
 
 // Conexión a la DB
 mongoose.connection.openUri(
@@ -16,12 +25,8 @@ mongoose.connection.openUri(
 );
 
 // rutas
-app.get("/", (req, res, next) => {
-  res.status(200).json({
-    ok: true,
-    mensaje: "¡Petición realizada correctamente!"
-  });
-});
+app.use("/", appRoutes);
+app.use("/usuario", usuarioRoutes);
 
 // Escuchar peticiones
 app.listen(3000, () => {
