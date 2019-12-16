@@ -1,6 +1,5 @@
 /* Ruta Principal */
 var express = require("express");
-var mongoose = require("mongoose");
 
 // Inicializar variables
 var app = express();
